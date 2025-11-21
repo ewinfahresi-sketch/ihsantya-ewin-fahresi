@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import styles from './LoginStyles';
-
+import { styles } from "./LoginStyles";
+import logo from "./assets/Logo_sds.jpg";
 
 export default function App() {
   const [username, setUsername] = useState("");
@@ -12,7 +12,7 @@ export default function App() {
       const response = await fetch("https://domain-api-kamu.com/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
@@ -23,17 +23,14 @@ export default function App() {
         alert("Username atau password salah!");
       }
     } catch (error) {
-      alert("Gagal menghubungi server!");
+      console.log("Terjadi error:", error);
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Image
-          source={require('@/assets/Logo SDS.tif')} 
-          style={styles.logo}
-        />
+        <Image source={logo} style={styles.logo} />
 
         <Text style={styles.title}>Portal Akademik</Text>
 
