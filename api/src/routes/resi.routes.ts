@@ -7,6 +7,7 @@ const router = Router();
  */
 router.post("/", async (req: Request, res: Response) => {
   try {
+    console.log("BODY:", req.body);
     const { pengirim, penerima, barang } = req.body;
 
     // validasi sederhana
