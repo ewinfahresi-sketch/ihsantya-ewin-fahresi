@@ -1,39 +1,20 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import { createResi, getResiById } from "../controllers/resi.controller";
 
 const router = Router();
 
 /**
  * POST /api/resi
+ * - Simpan resi ke DB
+ * - Generate PDF
+ * - Kirim PDF ke client
  */
-router.post("/", async (req: Request, res: Response) => {
-  try {
-    console.log("BODY:", req.body);
-    const { pengirim, penerima, barang } = req.body;
+router.post("/", createResi);
 
-    // validasi sederhana
-    if (!pengirim || !penerima || !barang) {
-      return res.status(400).json({
-        success: false,
-        message: "pengirim, penerima, dan barang wajib diisi",
-      });
-    }
-
-    // sementara: response dummy
-    return res.status(201).json({
-      success: true,
-      message: "POST RESI WORKS",
-      data: {
-        pengirim,
-        penerima,
-        barang,
-      },
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-    });
-  }
-});
+/**
+ * GET /api/resi/:id
+ * - Ambil data resi berdasarkan ID
+ */
+router.get("/:id", getResiById);
 
 export default router;
