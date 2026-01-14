@@ -1,3 +1,4 @@
+console.log("SERVER FILE LOADED"); // ← update kode
 import express from "express";
 import cors from "cors";
 import resiRoutes from "./routes/resi.routes";
