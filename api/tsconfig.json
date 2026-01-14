@@ -18,7 +18,7 @@
     "incremental": true
   },
   "exclude": [
-    "prisma.config.ts",
+    "prisma.config.mjs",
     "prisma"
   ]
 }
