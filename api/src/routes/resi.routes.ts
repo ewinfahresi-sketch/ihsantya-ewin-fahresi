@@ -1,19 +1,37 @@
-import express from "express";
-import prisma from "../lib/prisma";
+import { Router, Request, Response } from "express";
 
-const router = express.Router();
+const router = Router();
 
-router.get("/test-db", async (req, res) => {
+/**
+ * POST /api/resi
+ */
+router.post("/", async (req: Request, res: Response) => {
   try {
-    const count = await prisma.resi.count();
-    res.json({ message: "DB OK", totalResi: count });
-  } catch (error: unknown) { // Definisikan sebagai unknown secara eksplisit
-    // SOLUSI: Periksa apakah error adalah objek Error yang valid
-    if (error instanceof Error) {
-      res.status(500).json({ message: "DB Error", error: error.message });
-    } else {
-      res.status(500).json({ message: "An unknown error occurred" });
+    const { pengirim, penerima, barang } = req.body;
+
+    // validasi sederhana
+    if (!pengirim || !penerima || !barang) {
+      return res.status(400).json({
+        success: false,
+        message: "pengirim, penerima, dan barang wajib diisi",
+      });
     }
+
+    // sementara: response dummy
+    return res.status(201).json({
+      success: true,
+      message: "POST RESI WORKS",
+      data: {
+        pengirim,
+        penerima,
+        barang,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
   }
 });
 
