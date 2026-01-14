@@ -1,22 +1,28 @@
 import PDFDocument from "pdfkit";
+import { Resi } from "@prisma/client";
 
-export function generateResiPDF(data: any): Promise<Buffer> {
+export function generateResiPDF(resi: Resi): Promise<Buffer> {
   return new Promise((resolve) => {
     const doc = new PDFDocument({
-      size: [283, 425], // 10x15 cm
-      margin: 12
+      size: [283, 425], // 10 x 15 cm
+      margin: 20,
     });
 
-    const buffers: any[] = [];
+    const buffers: Buffer[] = [];
+
     doc.on("data", buffers.push.bind(buffers));
-    doc.on("end", () => resolve(Buffer.concat(buffers)));
+    doc.on("end", () => {
+      resolve(Buffer.concat(buffers));
+    });
 
     doc.fontSize(14).text("RESI PENGIRIMAN", { align: "center" });
     doc.moveDown();
-    doc.fontSize(10);
-    doc.text(`Pengirim : ${data.pengirim}`);
-    doc.text(`Penerima : ${data.penerima}`);
-    doc.text(`Barang   : ${data.barang}`);
+
+    doc.fontSize(10).text(`No Resi     : ${resi.noResi}`);
+    doc.text(`Pengirim   : ${resi.pengirim}`);
+    doc.text(`Penerima   : ${resi.penerima}`);
+    doc.text(`Barang     : ${resi.barang}`);
+    doc.text(`Tanggal    : ${resi.createdAt.toLocaleString()}`);
 
     doc.end();
   });
