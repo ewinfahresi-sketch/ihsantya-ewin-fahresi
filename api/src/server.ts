@@ -1,12 +1,20 @@
-import app from "./app";
+import express from "express";
+import cors from "cors";
+import resiRoutes from "./routes/resi.route";
 
-app.listen(4000, () => {
-  console.log("API running on http://localhost:4000");
-});
+const app = express();
+const PORT = 4000;
 
-import prisma from "./lib/prisma";
+// Middleware update kode
+app.use(cors());
+app.use(express.json());
 
-app.get("/test-db", async (_req, res) => {
-  const count = await prisma.resi.count();
-  res.json({ message: "DB OK", totalResi: count });
+// Routing 
+// Sekarang /test-db bisa diakses di /api/resi/test-db
+app.use("/api/resi", resiRoutes);
+
+// Menjalankan Server
+app.listen(PORT, () => {
+  console.log(`🚀 API running on http://localhost:${PORT}`);
+  console.log(`🔗 Test DB: http://localhost:${PORT}/api/resi/test-db`);
 });
