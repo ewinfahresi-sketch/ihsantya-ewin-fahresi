@@ -15,14 +15,8 @@ export default function Home() {
 
     const res = await fetch("http://localhost:4000/api/resi", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        pengirim,
-        penerima,
-        barang,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pengirim, penerima, barang }),
     });
 
     if (!res.ok) {
@@ -31,17 +25,14 @@ export default function Home() {
     }
 
     const blob = await res.blob();
-    const url = window.URL.createObjectURL(blob);
-
+    const url = URL.createObjectURL(blob);
     window.open(url, "_blank");
   };
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow w-96">
-        <h1 className="text-xl font-bold text-center mb-4">
-          Cetak Resi
-        </h1>
+      <div className="bg-white p-6 rounded shadow w-96">
+        <h1 className="text-xl font-bold mb-4 text-center">Cetak Resi</h1>
 
         <input
           className="border p-2 w-full mb-2"
