@@ -15,7 +15,7 @@ datasource db {
 
 model Resi {
   id         Int      @id @default(autoincrement())
-  noResi     String   @unique
+  noResi     String   @default(uuid()) // Menghasilkan kode unik otomatis
   pengirim   String
   penerima   String
   barang     String
