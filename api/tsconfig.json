@@ -16,5 +16,10 @@
 
     "sourceMap": true,
     "incremental": true
-  }
+  },
+  "exclude": [
+    "prisma.config.ts",
+    "prisma"
+  ]
 }
+
