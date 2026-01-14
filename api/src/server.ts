@@ -3,10 +3,12 @@ import express from "express";
 import cors from "cors";
 import resiRoutes from "./routes/resi.routes";
 
+console.log("RESI ROUTES LOADED"); // ← update kode
 const app = express();
 const PORT = 4000;
 
 // Middleware update kode
+app.use("/api/resi", resiRoutes); // ← update kode
 app.use(cors());
 app.use(express.json());
 
