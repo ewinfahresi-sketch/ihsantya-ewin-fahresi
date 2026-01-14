@@ -5,7 +5,7 @@ import resiRoutes from "./routes/resi.routes";
 const app = express();
 const PORT = 4000;
 
-// 🔥 middleware wajib
+// middleware wajib
 app.use(cors());
 app.use(express.json()); // <--- PENTING untuk parsing JSON body
 app.use(express.urlencoded({ extended: true }));
