@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import resiRoute from "./routes/resi.route";
+import resiRoute from "./routes/resi.routes";
 
 const app = express();
 app.use(cors());

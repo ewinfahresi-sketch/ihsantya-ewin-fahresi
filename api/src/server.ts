@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import resiRoutes from "./routes/resi.route";
+import resiRoutes from "./routes/resi.routes";
 
 const app = express();
 const PORT = 4000;
