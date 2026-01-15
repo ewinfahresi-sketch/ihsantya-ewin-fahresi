@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { createResi } from "@/services/resi.service";
+import { createResi } from "../services/resi.service";
 
 export default function HomePage() {
   // STATE FORM
