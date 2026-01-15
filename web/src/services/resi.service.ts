@@ -1,9 +1,9 @@
-export async function createResi(data: {
+export const createResi = async (data: {
   pengirim: string;
   penerima: string;
   barang: string;
-}) {
-  const res = await fetch("http://localhost:3001/api/resi", {
+}) => {
+  const response = await fetch("http://localhost:3001/api/resi", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,9 +11,10 @@ export async function createResi(data: {
     body: JSON.stringify(data),
   });
 
-  if (!res.ok) {
+  if (!response.ok) {
     throw new Error("Gagal membuat resi");
   }
 
-  return res.blob(); // karena API kirim PDF
-}
+  // API kirim PDF
+  return await response.blob();
+};

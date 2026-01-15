@@ -1,32 +1,20 @@
-// routes/resi.routes.ts
-import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
-
-const router = Router();
-const prisma = new PrismaClient();
-
-router.post("/", async (req, res) => {
-  try {
-    const { pengirim, penerima, barang } = req.body;
-
-    // Simpan ke database SQLite melalui Prisma
-    const dataBaru = await prisma.resi.create({
-      data: {
-        noResi: `RESI-${Date.now()}`, // update
-        pengirim,
-        penerima,
-        barang,
+export const createResi = async (data: {
+  pengirim: string;
+  penerima: string;
+  barang: string;
+}) => {
+  const response = await fetch("http://localhost:3001/api/resi", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    });
+    body: JSON.stringify(data),
+  });
 
-    // Mengirim respon teks sederhana untuk dicetak
-    const struk = `RESI: ${dataBaru.id}\nDari: ${pengirim}\nKe: ${penerima}\nBarang: ${barang}`;
-    
-    res.setHeader("Content-Type", "text/plain");
-    res.send(struk);
-  } catch (error) {
-    res.status(500).json({ error: "Gagal memproses resi" });
+  if (!response.ok) {
+    throw new Error("Gagal membuat resi");
   }
-});
 
-export default router;
+  // API kirim PDF
+  return await response.blob();
+};
