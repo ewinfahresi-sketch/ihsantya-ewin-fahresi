@@ -1,20 +1,9 @@
-export const createResi = async (data: {
-  pengirim: string;
-  penerima: string;
-  barang: string;
-}) => {
-  const response = await fetch("http://localhost:3001/api/resi", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+import { Router } from "express";
+import { createResi, getResiById } from "../controllers/resi.controller";
 
-  if (!response.ok) {
-    throw new Error("Gagal membuat resi");
-  }
+const router = Router();
 
-  // API kirim PDF
-  return await response.blob();
-};
+router.post("/", createResi);
+router.get("/:id", getResiById);
+
+export default router;
