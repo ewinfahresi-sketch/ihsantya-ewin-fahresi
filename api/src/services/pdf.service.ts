@@ -15,15 +15,21 @@ export function generateResiPDF(resi: Resi): Promise<Buffer> {
       resolve(Buffer.concat(buffers));
     });
 
-    doc.fontSize(14).text("RESI PENGIRIMAN", { align: "center" });
+    doc.fontSize(16).text("RESI PENGIRIMAN", { align: "center" });
     doc.moveDown();
 
-    doc.fontSize(10).text(`No Resi     : ${resi.noResi}`);
-    doc.text(`Pengirim   : ${resi.pengirim}`);
-    doc.text(`Penerima   : ${resi.penerima}`);
-    doc.text(`Barang     : ${resi.barang}`);
-    doc.text(`Tanggal    : ${resi.createdAt.toLocaleString()}`);
+    doc.fontSize(10);
+    doc.text(`No Resi : ${resi.noResi}`);
+    doc.text(`Tanggal : ${new Date(resi.createdAt).toLocaleString()}`);
+    doc.moveDown();
+
+    doc.text(`Pengirim : ${resi.pengirim}`);
+    doc.text(`Penerima : ${resi.penerima}`);
+    doc.moveDown();
+
+    doc.text("Barang:");
+    doc.text(resi.barang);
 
     doc.end();
   });
-}
+};
